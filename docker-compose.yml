@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  web:
+    image: install_biz
+    container_name: auth
+    env_file:
+      - ./.env.prod
+    ports:
+      - "8000:8000"
+    depends_on:
+      - alembic
+
+  db:
+    image: postgres:17
+    container_name: auth_db
+    restart: always
+    env_file:
+      - ./.env.db
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  alembic:
+    image: install_biz
+    env_file:
+      - ./.env.prod
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  prometheus:
+    image: prom/prometheus:v2.53.4
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+
+  grafana:
+    image: grafana/grafana-enterprise:11.6.0
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_storage:/var/lib/grafana
+
+volumes:
+  grafana_storage:
