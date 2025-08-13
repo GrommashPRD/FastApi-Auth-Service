@@ -6,6 +6,6 @@ scrape_configs:
   - job_name: prometheus
     static_configs:
       - targets: ['prometheus:9090']
-  - job_name: "tenders"
+  - job_name: "auth"
     static_configs:
       - targets: [ 'web:8000' ]
