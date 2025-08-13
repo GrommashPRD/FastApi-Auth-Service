@@ -1,0 +1,1 @@
+ENG_SYMBOLS_AND_NUMBERS= '^[a-zA-Z0-9]+$'
