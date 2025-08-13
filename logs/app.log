@@ -1,3 +1,0 @@
-{"timestamp": "2025-08-13 11:31:57.", "level": "WARNING", "message": "User not found None: wronguser", "module": "login", "funcName": "register_user"}
-{"timestamp": "2025-08-13 11:31:57.", "level": "WARNING", "message": "Incorrect password", "module": "login", "funcName": "register_user"}
-{"timestamp": "2025-08-13 11:31:58.", "level": "WARNING", "message": "Validation failed username - testuser122, password - testpassword123", "module": "registration", "funcName": "register_user"}
